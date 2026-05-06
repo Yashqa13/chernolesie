@@ -290,6 +290,7 @@ body.menu-open .burger {
 .sidebar-content {
   flex: 1;
   overflow-y: auto;
+  cursor: pointer;
 }
 
 .sidebar a {
