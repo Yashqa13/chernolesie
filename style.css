@@ -328,7 +328,7 @@ body.menu-open .burger {
   border-top: 1px solid #222;
 }
 
-/* ===== OVERLAY ===== 
+/* ===== OVERLAY ===== */
 .overlay {
   position: fixed;
   top: 0;
@@ -341,7 +341,7 @@ body.menu-open .burger {
   transition: 0.3s;
   z-index: 900;
 }
-*/
+
 
 body.menu-open .overlay {
   opacity: 1;
