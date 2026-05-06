@@ -11,6 +11,10 @@ body {
   transition: opacity 0.2s ease;
 }
 
+.nav-link { 
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
 }
