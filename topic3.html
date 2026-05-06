@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Форум</title>
+</head>
+<body>
+
+
+<div class="container">
+
+  <div class="post">
+    <div class="content">
+
+      <div class="title">
+       Сокровища третьего рейха - кто верит в эту хуйню?
+      </div>
+
+      <div class="meta">создал Девятый • 3 дня назад</div>
+
+      <div class="text">
+        Всем гутентаг или 1488, мне наднях товарищ рассказал, что здесь охотников за кладом нацистов развелось, есть просвещенные? Расскажите что за байка.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- КОММЕНТАРИИ -->
+
+    <div class="comment">
+      <div class="avatar">
+  <img src="avatars/byvaliy.jpg" alt="avatar">
+</div>
+      <div class="comment-body">
+        <div class="username hidden">Бывалый</div>
+        <div class="comment-text">
+          Ахахахах, какие сокровища, брат, в этой дыре ловить нехуй, вот те кто свои халупы сдают туристам и выдумывают всякую хуйню лишь бы заманить.
+        </div>
+      </div>
+    </div>
+
+    <div class="comment">
+      <div class="avatar">
+  <img src="avatars/zek.png" alt="avatar">
+</div>
+      <div class="comment-body">
+        <div class="username hidden">Валерий Кочетов</div>
+        <div class="comment-text">
+            Вот когда найду, посмотрю как закукарекаете!
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- форма -->
+    <div class="comment-form">
+      <input placeholder="Ваше имя">
+      <textarea placeholder="Написать комментарий..."></textarea>
+      <button onclick="addComment(this)">Ответить</button>
+    </div>
+
+  </div>
+
+  <!-- кнопки снизу -->
+
+<div class="post-footer-actions">
+
+<button class="forum-back-btn">
+    <a href="forum.html" class="forum-back-btn nav-link">
+       Назад к форуму
+    </a>
+    </button>
+
+  </div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

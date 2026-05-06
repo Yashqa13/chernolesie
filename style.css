@@ -1,0 +1,519 @@
+/* ===== ШРИФТЫ ===== */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Display:wght@400;700&family=Reddit+Sans:wght@400;500;700&display=swap');
+
+/* ===== БАЗА ===== */
+body {
+  margin: 0;
+  font-family: 'Reddit Sans', Arial, sans-serif;
+  background: #0d0d0d;
+  color: #d7dadc;
+  overflow-y: scroll;
+  transition: opacity 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.forum-back-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 8px 10px 8px;
+  background: #1a1a1b;
+  border: 1px solid #343536;
+  border-radius: 10px;
+
+  color: #ebeff1;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+
+  transition: 0.2s;
+  
+}
+
+/* ЗУМ изображения */ 
+
+.image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  animation: fadeIn 0.15s ease;
+}
+
+.zoomed-image {
+  max-width: 95%;
+  max-height: 95%;
+  border-radius: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #1a1a1b;
+  border-bottom: 1px solid #343536;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.burger {
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+body.menu-open .burger {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.title-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.title-main svg {
+  height: 32px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
+}
+
+.search {
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ===== КОНТЕЙНЕР ===== */
+.container {
+  max-width: 800px;
+  margin: 10px auto;
+  padding: 0 10px;
+}
+
+/* ===== ПОСТЫ ===== */
+.post {
+  display: flex;
+  background:#1a1a1b;
+  border:1px solid #343536;
+  margin-bottom:12px;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+.post:hover {
+  border-color: #4f5254;
+}
+
+.content {
+  padding: 10px;
+  flex: 1;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.title a {
+  font-weight: 500;
+}
+
+.title a:hover {
+  color: #fff;
+}
+
+.meta {
+  font-size: 12px;
+  color: #818384;
+  margin-bottom: 6px;
+}
+
+.text {
+  font-size: 14px;
+  color: #b0b3b8;
+}
+
+/* ===== ПРЕВЬЮ ===== */
+.post-preview {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.post-preview img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* ===== КОММЕНТЫ ===== */
+.comments {
+  margin-top: 10px;
+}
+
+.comment {
+  display: flex;
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  margin-right: 8px;
+}
+  .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.comment-body {
+  background: #111;
+  padding: 8px;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.username {
+
+  font-size: 15px;
+  color: #818384;
+}
+
+.username.hidden {
+  color: #ccc6cf;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  
+}
+
+.title-topic2 {
+  color: #d7dadc
+}
+
+.comment-text {
+  font-size: 13px;
+  
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  background: #111;
+  border: 1px solid #343536;
+  color: #d7dadc;
+}
+
+.comment-form button {
+  margin-top: 8px;
+  padding: 8px;
+  background: #ff4500;
+  border: none;
+  color: #fff;
+  width: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: #111;
+  border-right: 1px solid #343536;
+  padding: 20px 10px 0 10px;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sidebar-header {
+  margin-bottom: 10px;
+  padding-left: 8px;
+}
+
+.sidebar-title {
+  font-family: 'Reddit Display', sans-serif;
+  color: #fff;
+  font-size: 16px;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar a {
+  margin: 10px 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 8px;
+}
+
+.sidebar a svg {
+  width: 18px;
+  height: 18px;
+  fill: #d7dadc;
+}
+
+.sidebar a:hover {
+  color: #fff;
+}
+
+.sidebar a:hover svg {
+  fill: #fff;
+}
+
+.sidebar-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  padding: 20px 0;
+  border-top: 1px solid #222;
+}
+
+/* ===== OVERLAY ===== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 900;
+}
+
+body.menu-open .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== МИГАЛКА ===== */
+@keyframes blink-siren {
+  0% { opacity:1; transform:scale(1); fill:#ff3b3b; }
+  50% { opacity:0.6; transform:scale(1.1); fill:#3b82ff; }
+  100% { opacity:1; transform:scale(1); fill:#ff3b3b; }
+}
+
+.siren svg {
+  animation: blink-siren 2s infinite linear;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px) {
+
+  .post {
+    flex-direction: column;
+  }
+
+  .post-preview {
+    flex-direction: column;
+  }
+
+  .post-preview img {
+    width: 100%;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 220px;
+  }
+}
+
+/* Кнопка поделиться */
+
+ .share-btn {
+    margin-bottom: 18px;
+  margin-left: 16px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ebeff1;
+  
+} 
+
+.share-btn svg {
+    
+  width: 16px;
+  height: 16px;
+  fill: #ebeff1;
+}
+
+.share-btn:hover {
+  color: #d7dadc;
+}
+/* Футер поста */
+
+.post-footer-actions {
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+}
+
+.back-btn {
+  margin-bottom: 18px;
+  margin-right: 16px;
+  font-size: 16px;
+  color: #ebeff1;
+  text-decoration: none;
+  transition: 0.15s;
+}
+
+.back-btn:hover {
+  color: #d7dadc;
+}
+
+/* Всплывающие окно */
+
+.share-modal {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.2s;
+  z-index:2000;
+}
+
+.share-modal.open {
+  opacity:1;
+  pointer-events:auto;
+}
+
+.share-content {
+  background:#1a1a1b;
+  padding:20px;
+  border-radius:10px;
+  width:260px;
+  text-align:center;
+}
+
+.share-title {
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+.share-option {
+  padding:10px;
+  background:#111;
+  margin:6px 0;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.share-option:hover {
+  background:#2a2a2a;
+}
+
+.close-btn {
+  margin-top:10px;
+  padding:8px;
+  width:100%;
+  background:#ff4500;
+  border:none;
+  color:#fff;
+  border-radius:6px;
+}
+
+.share-btn:hover svg {
+  fill: #d7dadc;
+}
+
+/* Просмотры */
+
+.post-views {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #818384;
+}
+
+.post-views svg {
+  width: 16px;
+  height: 16px;
+  fill: #818384;
+}
+
+.post-views span {
+  line-height: 1;
+}
+
+.comment-image img {
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.forum-post {
+  display: block;
+}
