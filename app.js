@@ -189,6 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.scrollTo(0,0);
         history.pushState(null, '', url);
+        setTimeout(() => {
+      closeMenu();
+    }, 100);
 
         closeMenu(); // важно!
       });
