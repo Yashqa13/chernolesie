@@ -88,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== SWIPE =====
 
+  
+
   let startX = 0;
   let currentX = 0;
   let isDragging = false;
@@ -113,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let x = e.touches[0].clientX;
     let dx = x - startX;
+    if (Math.abs(dx) < 10) return;
     let now = Date.now();
 
     velocity = (x - currentX) / (now - lastMoveTime + 1);
