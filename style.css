@@ -11,6 +11,10 @@ body {
   transition: opacity 0.2s ease;
 }
 
+.element::-webkit-scrollbar {
+  display: none;
+}
+
 .nav-link { 
   cursor: pointer;
 }
