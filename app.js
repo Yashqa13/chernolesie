@@ -91,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let startX = 0;
   let currentX = 0;
   let isDragging = false;
-  let hasMoved = false; // НОВАЯ ПЕРЕМЕННАЯ: проверяем, был ли сдвиг
   let lastMoveTime = 0;
   let velocity = 0;
 
@@ -106,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startX = e.touches[0].clientX;
     currentX = startX;
     isDragging = startX < 30 || sidebar.classList.contains('open');
-    hasMoved = false; // Сбрасываем флаг при новом касании
     lastMoveTime = Date.now();
   });
 
@@ -115,13 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let x = e.touches[0].clientX;
     let dx = x - startX;
-    
-    if (Math.abs(dx) < 10) return; // Мертвая зона
-
-    hasMoved = true; // Палец сдвинулся! Это свайп, а не клик
-
     let now = Date.now();
+
     velocity = (x - currentX) / (now - lastMoveTime + 1);
+
     currentX = x;
     lastMoveTime = now;
 
@@ -141,10 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!isDragging || !sidebar) return;
 
     isDragging = false;
-
-    // ВАЖНО: Если сдвига не было (это был просто тап по ссылке),
-    // прерываем функцию, чтобы браузер мог нормально кликнуть по ссылке
-    if (!hasMoved) return; 
 
     let threshold = -130;
     let current = -260;
@@ -167,7 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
- // ===== SPA НАВИГАЦИЯ =====
+
+  // ===== SPA НАВИГАЦИЯ =====
 
   const isLocal = location.protocol === 'file:';
 
@@ -175,11 +167,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const link = e.target.closest('.nav-link');
     if(!link) return;
 
-    if(isLocal) return; // отключаем SPA при file://
+    if(isLocal) return; 
 
     e.preventDefault();
-
     const url = link.getAttribute('href');
+
+    // --- НОВОЕ: Запоминаем ID поста перед переходом ---
+    const parentPost = link.closest('.post');
+    if (parentPost && parentPost.id) {
+        sessionStorage.setItem('scrollTarget', parentPost.id);
+    }
+    // -------------------------------------------------
 
     fetch(url)
       .then(res => res.text())
@@ -191,23 +189,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!newContent) return;
 
         document.querySelector('.container').innerHTML = newContent.innerHTML;
-
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // "Встряска" для браузера
-        document.body.style.display = '';
-
-        window.scrollTo(0,0);
         history.pushState(null, '', url);
+
+        // --- НОВОЕ: Логика умного скролла ---
+        const targetId = sessionStorage.getItem('scrollTarget');
+        
+        // Если мы вернулись на главную (index.html) и у нас есть сохраненный ID
+        if ((url.includes('index.html') || url === '/') && targetId) {
+            const element = document.getElementById(targetId);
+            if (element) {
+                // Плавно скроллим к элементу
+                element.scrollIntoView({ behavior: 'auto', block: 'center' });
+                // Очищаем память, чтобы при следующей загрузке не кидало в середину
+                sessionStorage.removeItem('scrollTarget');
+            }
+        } else {
+            // Если это переход на страницу поста — всегда скроллим вверх
+            window.scrollTo(0,0);
+        }
+        // ------------------------------------
+
         setTimeout(() => {
-      closeMenu();
-    }, 100);
-
-        closeMenu(); // важно!
+          closeMenu();
+        }, 150);
       });
-  });
-
 });
 
+});
 
 function openShare(){
   document.getElementById('shareModal').classList.add('open');
