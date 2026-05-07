@@ -88,9 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== SWIPE =====
 
+  // ===== SWIPE =====
+
   let startX = 0;
   let currentX = 0;
   let isDragging = false;
+  let hasMoved = false; // НОВАЯ ПЕРЕМЕННАЯ: проверяем, был ли сдвиг
   let lastMoveTime = 0;
   let velocity = 0;
 
@@ -105,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startX = e.touches[0].clientX;
     currentX = startX;
     isDragging = startX < 30 || sidebar.classList.contains('open');
+    hasMoved = false; // Сбрасываем флаг при новом касании
     lastMoveTime = Date.now();
   });
 
@@ -113,10 +117,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let x = e.touches[0].clientX;
     let dx = x - startX;
+    
+    if (Math.abs(dx) < 10) return; // Мертвая зона
+
+    hasMoved = true; // Палец сдвинулся! Это свайп, а не клик
+
     let now = Date.now();
-
     velocity = (x - currentX) / (now - lastMoveTime + 1);
-
     currentX = x;
     lastMoveTime = now;
 
@@ -136,6 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!isDragging || !sidebar) return;
 
     isDragging = false;
+
+    // ВАЖНО: Если сдвига не было (это был просто тап по ссылке),
+    // прерываем функцию, чтобы браузер мог нормально кликнуть по ссылке
+    if (!hasMoved) return; 
 
     let threshold = -130;
     let current = -260;
