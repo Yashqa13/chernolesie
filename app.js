@@ -192,6 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('.container').innerHTML = newContent.innerHTML;
 
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // "Встряска" для браузера
+        document.body.style.display = '';
+
         window.scrollTo(0,0);
         history.pushState(null, '', url);
         setTimeout(() => {
