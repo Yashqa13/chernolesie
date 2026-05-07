@@ -191,6 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.container').innerHTML = newContent.innerHTML;
         history.pushState(null, '', url);
 
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // "Встряска" для браузера
+        document.body.style.display = '';
+
         // --- НОВОЕ: Логика умного скролла ---
         const targetId = sessionStorage.getItem('scrollTarget');
         
