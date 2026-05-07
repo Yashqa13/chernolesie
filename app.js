@@ -194,13 +194,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.scrollTo(0,0);
         history.pushState(null, '', url);
-        
-        // Оставляем только закрытие с задержкой, убираем дубликат!
         setTimeout(() => {
-          closeMenu();
-        }, 150);
+      closeMenu();
+    }, 100);
+
+        closeMenu(); // важно!
       });
   });
+
+});
+
 
 function openShare(){
   document.getElementById('shareModal').classList.add('open');
